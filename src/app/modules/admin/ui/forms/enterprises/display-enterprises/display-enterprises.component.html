@@ -1,0 +1,125 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <mat-drawer-container class="flex-auto">
+        <!-- Drawer -->
+        <mat-drawer class="w-72 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened"
+            #matDrawer>
+            <!-- Demo sidebar -->
+            <demo-sidebar></demo-sidebar>
+        </mat-drawer>
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col">
+            <!-- Main -->
+            <div class="flex-auto p-6 sm:p-10">
+                <!-- Drawer toggle -->
+                <button class="mb-4" mat-icon-button (click)="matDrawer.toggle()">
+                    <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+                </button>
+                <!-- CONTENT GOES HERE -->
+                <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl">
+                    <mat-card>
+                        <mat-card-header>
+                            <div mat-card-avatar></div>
+                            <mat-card-title>Enterprises</mat-card-title>
+                            <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                        </mat-card-header>
+                        <mat-card-content style="padding: 3px;">
+                            <div class="mat-elevation-z8">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Filter</mat-label>
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                                </mat-form-field>
+                                <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+                                    <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+                                        <th mat-header-cell *matHeaderCellDef>{{column}} </th>
+                                        <td mat-cell *matCellDef="let emp"> {{emp[column]}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="local_address">
+                                        <th mat-header-cell *matHeaderCellDef>adress </th>
+                                        <td mat-cell *matCellDef="let emp"> {{emp.local_address.address}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="expand">
+                                        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp; </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <button mat-icon-button aria-label="expand row"
+                                                (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                                                <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down
+                                                </mat-icon>
+                                                <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up
+                                                </mat-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                                    <ng-container matColumnDef="expandedDetail">
+                                        <td mat-cell *matCellDef="let element"
+                                            [attr.colspan]="columnsToDisplayWithExpand.length">
+                                            <div class="example-element-detail"
+                                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                                <div class="example-element-diagram">
+                                                    <div class="titre-address">L'addresse de l'enterprise </div>
+                                                    <div class="example-element-position"> id :
+                                                        {{element.local_address.id}} </div>
+                                                    <div class="example-element-position"> Address :
+                                                        {{element.local_address.address}} </div>
+                                                    <div class="example-element-position"> City :
+                                                        {{element.local_address.city}} </div>
+                                                    <div class="example-element-position"> Country :
+                                                        {{element.local_address.country}} </div>
+                                                    <div class="example-element-position"> Postal Code :
+                                                        {{element.local_address.postal_code}} </div>
+                                                </div>
+                                                <section class="example-element-diagram">
+                                                    <div class="example-label titre-address">Information de l'entreprise
+                                                    </div>
+                                                    <div class="d-grid gap-2">
+                                                        <mat-nav-list>
+                                                            <div class="example-element-position">
+                                                                <button mat-stroked-button color="primary"
+                                                                    (click)="updateEnterprise(element.id,element)"
+                                                                    class="myButton">Modifier
+                                                                    l'enterprise</button>
+                                                            </div>
+                                                            <div class="example-element-position">
+                                                                <button mat-stroked-button color="accent"
+                                                                    (click)="ListPersonsEnterprise(element)"
+                                                                    class="myButton">Lister les
+                                                                    personnels</button>
+                                                            </div>
+                                                            <div class="example-element-position">
+                                                                <button mat-stroked-button color="warn"
+                                                                    (click)="deleteEnterprise(element)"
+                                                                    class="myButton">Supprimer
+                                                                    l'enterprise</button>
+                                                            </div>
+                                                        </mat-nav-list>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+                                    <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+                                        class="example-element-row"
+                                        [class.example-expanded-row]="expandedElement === element"
+                                        (click)="expandedElement = expandedElement === element ? null : element">
+                                    </tr>
+                                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
+                                        class="example-detail-row"></tr>
+                                    <!-- <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: columnsToDisplayWithExpand;"></tr> -->
+                                </table>
+
+                                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                                    aria-label="Select page of periodic elements">
+                                </mat-paginator>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

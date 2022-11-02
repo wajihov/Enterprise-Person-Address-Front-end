@@ -1,0 +1,3 @@
+export enum Post {
+    PRESIDENT, HRD, ADMINISTRATOR, EMPLOYEE
+}

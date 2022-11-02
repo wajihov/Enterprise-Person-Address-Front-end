@@ -1,0 +1,130 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">Enterprises</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">Create new Enterprise</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Form Wizards
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <div class="max-w-3xl">
+
+            <!-- Horizontal stepper -->
+            <div class="mt-16 mb-8 text-3xl font-bold">Horizontal Stepper</div>
+
+            <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper [linear]="true" #horizontalStepper>
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>Basic information</ng-template>
+                        <p class="my-6 font-medium">
+                            Fill in your basic information to let us know your preferences
+                        </p>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <input matInput [formControlName]="'name'" [placeholder]="'Name Enterprise'" required>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
+                                </mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <input matInput [formControlName]="'tax_number'" [placeholder]="'Tax Number'" required>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
+                                </mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button class="px-8" mat-flat-button [color]="'primary'"
+                                [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
+                                type="button" matStepperNext (click)="addEnterprise()">
+                                Next
+                            </button>
+                        </div>
+                    </mat-step>
+
+                    <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>Address</ng-template>
+                        <p class="my-6 font-medium">
+                            People here will get to know you with this information
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <input matInput [formControlName]="'address'" [placeholder]="'Avenue Address'" required>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'add_location_alt'"></mat-icon>
+                            </mat-form-field>
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <input matInput [formControlName]="'country'" [placeholder]="'Your Country'" required>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'share_location'"></mat-icon>
+                            </mat-form-field>
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <input matInput [formControlName]="'city'" [placeholder]="'Your City'" required>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'share_location'"></mat-icon>
+                            </mat-form-field>
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <input matInput [formControlName]="'postal_code'" [placeholder]="'Your Postal Code'"
+                                    required>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'mat_solid:compost'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex justify-end">
+                            <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button"
+                                matStepperPrevious>
+                                Back
+                            </button>
+                            <button class="px-8" mat-flat-button [color]="'primary'"
+                                [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
+                                type="button" matStepperNext (click)="addAddress()">
+                                Next
+                            </button>
+                        </div>
+                    </mat-step>
+
+
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p class="my-6 font-medium">
+                            Thank you for completing our form! You can reset the form if you would like to change your
+                            information.
+                        </p>
+                        <div class="flex justify-end mt-8">
+                            <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button"
+                                matStepperPrevious>
+                                Back
+                            </button>
+                            <button class="px-8" mat-flat-button [color]="'primary'" type="reset"
+                                (click)="saveEnterprise()">
+                                Valider
+                            </button>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+
+
+
+        </div>
+
+    </div>
+
+</div>

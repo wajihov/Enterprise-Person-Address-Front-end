@@ -1,0 +1,15 @@
+<h2 mat-dialog-title style="text-align: center;">
+    <!-- <mat-icon>drag_handle</mat-icon> -->
+    {{title}}
+</h2>
+<mat-dialog-content>
+    {{message}}
+</mat-dialog-content>
+<mat-dialog-actions >
+    <div class="floated run first">
+        <button mat-raised-button mat-dialog-close color="primary" (click)="onConfirm()" class="button">Delete</button>
+    </div>
+    <div class="floated run" >
+        <button mat-raised-button color="warn" (click)="onDismiss()" class="button">Cancel</button>
+    </div>
+</mat-dialog-actions>

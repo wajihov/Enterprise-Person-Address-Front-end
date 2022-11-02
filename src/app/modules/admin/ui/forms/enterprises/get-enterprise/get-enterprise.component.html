@@ -1,0 +1,242 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div>
+                <div class="hidden sm:flex flex-wrap items-center font-medium">
+                    <div>
+                        <a class="whitespace-nowrap text-primary-500">Projects</a>
+                    </div>
+                    <div class="flex items-center ml-1 whitespace-nowrap">
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
+                        </mat-icon>
+                        <a class="ml-1 text-primary-500">Entreprises</a>
+                    </div>
+                    <div class="flex items-center ml-1 whitespace-nowrap">
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
+                        </mat-icon>
+                        <span class="ml-1 text-secondary">Enterprise</span>
+                    </div>
+                </div>
+                <div class="flex sm:hidden">
+                    <a class="inline-flex items-center -ml-1.5 text-secondary font-medium" [routerLink]="'./..'">
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-left'">
+                        </mat-icon>
+                        <span class="ml-1">Back</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Page heading
+                </h2>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button mat-stroked-button>
+                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                Edit
+            </button>
+            <button class="ml-3" mat-flat-button [color]="'accent'">
+                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:link'"></mat-icon>
+                View
+            </button>
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar></div>
+                    <mat-card-title>Enterprises</mat-card-title>
+                    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                </mat-card-header>
+                <mat-card-content style="padding: 3px;">
+                    <div class="mat-elevation-z8">
+                        <div class="example-element-diagram">
+                            <div class="titre-entreprise">Les infomation de l'entreprise </div>
+                            <div class="example-element-title">
+                                <mat-label> Id : </mat-label>
+                                <mat-label> {{enterprise?.id}}</mat-label>
+                            </div>
+                            <div class="example-element-title">
+                                <mat-label>Name : </mat-label>
+                                <mat-label>{{enterprise?.name}}</mat-label>
+                            </div>
+                            <div class="example-element-title">
+                                <mat-label>Tax Number : </mat-label>
+                                <mat-label>{{enterprise?.tax_number}}</mat-label>
+                            </div>
+                            <div class="titre-address-entreprise">L'adresse de l'entreprise </div>
+                            <div class="example-element-title"> Addresse :
+                                {{enterprise?.local_address.address}} </div>
+                            <div class="example-element-title"> City :
+                                {{enterprise?.local_address.city}} </div>
+                            <div class="example-element-title"> Country :
+                                {{enterprise?.local_address.address}} </div>
+                            <div class="example-element-title"> Code postal :
+                                {{enterprise?.local_address.postal_code}} </div>
+                        </div>
+                        <div class="example-element-position">
+                            <button mat-raised-button color="accent" (click)="ListPersonsEnterprise(enterprise.persons)"
+                                class="myButton">
+                                <mat-icon>people</mat-icon> Personnels
+                            </button>
+                        </div>
+                        <div class="example-element-position">
+                            <button mat-raised-button color="primary"
+                                (click)="updateEnterprise(enterprise.id, enterprise)" class="myButton">
+                                <mat-icon> border_color</mat-icon> Enterprise
+                            </button>
+                        </div>
+                        <div class="example-element-position">
+                            <button mat-raised-button color="warn" (click)="goToEnterprises()" class="myButtonBack">
+                                <mat-icon>arrow_forward</mat-icon> Back
+                            </button>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card>
+                    <mat-card-header>
+                        <div mat-card-avatar></div>
+                        <mat-card-title>Liste des Persones</mat-card-title>
+                        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                    </mat-card-header>
+                    <mat-card-content style="padding: 3px;">
+                        <div class="mat-elevation-z8">
+                            <div class="example-element-diagram-persons">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Filter</mat-label>
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                                </mat-form-field>
+
+                                <div class="mat-elevation-z8">
+
+                                    <table mat-table [dataSource]="datasourceList" matSort multiTemplateDataRows>
+
+                                        <!-- ID Column -->
+                                        <ng-container matColumnDef="id">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                                        </ng-container>
+
+                                        <!-- Name Column -->
+                                        <ng-container matColumnDef="name">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                                        </ng-container>
+
+                                        <!-- Lastame Column -->
+                                        <ng-container matColumnDef="lastname">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+                                        </ng-container>
+
+                                        <!-- Post Column -->
+                                        <ng-container matColumnDef="post">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Post </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.post}} </td>
+                                        </ng-container>
+
+                                        <!-- Post Column -->
+                                        <ng-container matColumnDef="local_address.address">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.local_address.address }}
+                                            </td>
+                                        </ng-container>
+
+
+                                        <ng-container matColumnDef="details">
+                                            <th mat-header-cell *matHeaderCellDef style="text-align: center;">Details
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <button href="javascript:void()" mat-button class="myBtnAction"
+                                                    (click)="element.isExpanded = !element.isExpanded">
+                                                    <mat-icon>details</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="actions">
+                                            <th mat-header-cell *matHeaderCellDef style="text-align: center;">Actions
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <button class="myBtnAction" mat-button
+                                                    (click)="updatePerson(element.id, element)">
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                                <button class="myBtnAction" mat-button
+                                                    (click)="deletePersonById(element.id,  element)">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+
+
+
+                                        <ng-container matColumnDef="expandedDetail">
+                                            <td mat-cell *matCellDef="let element"
+                                                [attr.colspan]="displayedColumnsList.length">
+
+                                                <div class="row address-element-detail"
+                                                    [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+                                                    <mat-list>
+                                                        <div mat-subheader>Details Adress of {{element.name}}</div>
+                                                        <!-- <mat-list-item *ngFor="let subject of element.local_address"> -->
+                                                        <div mat-line>Address : {{element.local_address.address}}
+                                                        </div>
+                                                        <div mat-line>City : {{element.local_address.city}}</div>
+                                                        <div mat-line>Country : {{element.local_address.country}}</div>
+                                                        <div mat-line>Postal Code :
+                                                            {{element.local_address.postal_code}}</div>
+                                                        <!-- </mat-list-item> -->
+                                                    </mat-list>
+                                                </div>
+
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsList;sticky: true">
+                                        </tr>
+                                        <tr mat-row *matRowDef="let element; columns: displayedColumnsList;"
+                                            class="address-element-row"
+                                            [class.address-expanded-row]="element.isExpanded"></tr>
+
+                                        <!-- Extra row to show detail content column -->
+                                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
+                                            class="address-detail-row"></tr>
+
+                                        <tr class="mat-row" *matNoDataRow>
+                                            <td class="mat-cell" colspan="4">No data matching the filter
+                                                "{{input.value}}"</td>
+                                        </tr>
+                                    </table>
+                                    <button class="btnAddPerson" (click)="addPerson(enterprise.id)" mat-button>
+                                        <mat-icon>add_circle</mat-icon>
+                                    </button>
+
+                                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+                                        aria-label="Select page of users"></mat-paginator>
+                                </div>
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-card>
+        </div>
+        <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl">
+
+        </div>
+
+
+
+    </div>

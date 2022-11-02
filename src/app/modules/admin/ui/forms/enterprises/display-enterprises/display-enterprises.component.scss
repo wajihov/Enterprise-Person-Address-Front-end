@@ -1,0 +1,77 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  padding: 30px;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 90px;
+  border: 3px solid black;
+  padding: 7px;
+  margin: 7px 2px;
+  height: 170px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+  padding: 16px;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.titre-address {
+  font-size: smaller;
+  font-weight: 600;
+}
+
+.example-button-row {
+  padding-top: 10px;
+}
+
+.example-element-position .myButton {
+  margin: 2px;
+}
+
+.myButton {
+  width: 16em;
+}
+
+.hide_element {
+  display: none;
+}

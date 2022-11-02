@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
+import { PersonsComponent } from './create-person/persons.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,28 +11,32 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SharedModule } from 'app/shared/shared.module';
-import { FormsWizardsComponent } from 'app/modules/admin/ui/forms/wizards/wizards.component';
+import { UpdatePersonComponent } from './update-person/update-person.component';
 
 export const routes: Route[] = [
-    { path: '', component: FormsWizardsComponent }
+  { path: 'create-person/:id', component: PersonsComponent },
+  { path: 'update-person/:id', component: UpdatePersonComponent },
+
+
 ];
 
 @NgModule({
-    declarations: [
-        FormsWizardsComponent,
-    ],
-    imports: [
-        RouterModule.forChild(routes),
-        MatButtonModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatRadioModule,
-        MatSelectModule,
-        MatStepperModule,
-        SharedModule
-    ]
+  declarations: [
+    PersonsComponent,
+    UpdatePersonComponent
+  ],
+  imports: [
+    RouterModule.forChild(routes),
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatStepperModule,
+    SharedModule,
+    CommonModule,
+  ]
 })
-export class FormsWizardsModule {
-}
+export class PersonsModule { }
